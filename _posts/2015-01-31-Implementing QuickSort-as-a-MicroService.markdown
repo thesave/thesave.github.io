@@ -29,7 +29,7 @@ As Wikipedia puts it (slightly modified):
   A := concatenate(less, pivot, greater)</code>
 </pre>
 
-In English, you want to order `A`, which is an array of sortable (comparable) elements. You take a pivot element (e.g., from the middle of the array) and cycle through the whole array to divide it into two halves, `less` and `greater`. `less` will contain all elements lesser or equal to the pivot and `greater` the remaining greater-than-pivot elements. Done that you can apply quicksort to `less` and `greater` which will order them. Finally you assemble `less`, the `pivot`, and `greater` (in this order) and return the result.
+In English, you want to order `A`, which is an array of sortable (comparable) elements. You take a pivot element (e.g., from the middle of the array) and cycle through the whole array to divide it into two halves, `less` and `greater`. `less` will contain all elements lesser than or equal to the pivot and `greater` the remaining greater-than-pivot elements. Done that you can apply quicksort to `less` and `greater` which will order them. Finally you assemble `less`, the `pivot`, and `greater` (in this order) and return the result.
 
 ## ... as a (Micro)Service
 
