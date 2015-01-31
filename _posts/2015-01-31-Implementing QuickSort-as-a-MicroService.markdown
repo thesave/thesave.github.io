@@ -58,10 +58,10 @@ Remember that every variable in Jolie is a tree [^1], therefore our type will ha
 As said, let us begin with the request-response operation
 
 <pre>
-<code class="language-jolie">quicksort( req )( response ){ ... }</code>
+<code class="language-jolie">quicksort( req )( res ){ ... }</code>
 </pre>
 
-As you might guess, req and response have both type `QSType`. The body of the operation will contain the behaviour of the quicksort.
+As you might guess, `req` and `res` have both type `QSType`. The body of the operation will contain the behaviour of the quicksort.
 
 <div style="overflow:auto;"><div style="width:49%;float:left">
 <pre>
@@ -98,17 +98,17 @@ As you might guess, req and response have both type `QSType`. The body of the op
 </pre></div></div>
 
 First we check if the array in the request has less than 2 elements. Jolie provides the `#` operator that returns the number of leaves in the branch at its right. Its behaviour is not different from the usual `req.e.length()` of C/Java.
-In case there are less than 2 elements (else branch), we return as response exactly the request. `res << req` (<< being the [deep-copy operator](http://docs.jolie-lang.org/#!documentation/basics/data_structures.html#copying-an-entire-tree-structure)) means "copy the whole structure and values of variable `res` in `req`".
+In case there are less than 2 elements (else branch), we return as response exactly the request. `res << req` (`<<` being the [deep-copy operator](http://docs.jolie-lang.org/#!documentation/basics/data_structures.html#copying-an-entire-tree-structure)) means "copy the whole structure and values of variable `req` in `res`".
 
-If there are more elements we can sort them. Although there are plenty of optimisations [[1]](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.39.1103)[[2]](http://comjnl.oxfordjournals.org/content/27/3/276.full.pdf+html)[[3]](http://www.cs.dartmouth.edu/~doug/mdmspe.pdf)[[4]](http://cs.fit.edu/~pkc/classes/writing/samples/bentley93engineering.pdf) we will stick to the good ol' "take the middle element as pivot". We use `#` to address the *n-th+1* leaf and store the whole structure of the `i-th` element of `req.e`.
-
----
-
-*Beware: pedantic observation!*. We are using `<<` to copy the values of the leaves. Why didn't we use the expression `less.e[ #less.e ] = req.e[ i ]`. Since every variable in Jolie is a tree, `req.e[ i ]` is actually a shorthand for `req.e[ i ][ 0 ]`, i.e., the first leaf of tree `req.e[ i ]`. If we assume to have a one-element data structure, using `=` to copy it would yield the same result as `<<`. On the contrary, if we want to bring along a sub-structure rooted in `req.e[ i ]` (e.g., blog posts) we need to deep-copy it.
+If there are more elements we can sort them. Although there are plenty of optimisations [[1]](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.39.1103)[[2]](http://comjnl.oxfordjournals.org/content/27/3/276.full.pdf+html)[[3]](http://www.cs.dartmouth.edu/~doug/mdmspe.pdf)[[4]](http://cs.fit.edu/~pkc/classes/writing/samples/bentley93engineering.pdf), we will stick to the good ol' "take the middle element as pivot". We use `#` to address the *n-th+1* leaf and store the whole structure of the `i-th` element of `req.e`.
 
 ---
 
-Let us get to the recursive calls. What we need are create two [ports](http://docs.jolie-lang.org/#!documentation/basics/communication_ports.html#ports), one inputPort and one outputPort.
+*Beware: pedantic observation!*. We are using `<<` to copy the values of the leaves. Why didn't we use the expression `less.e[ #less.e ] = req.e[ i ]`? Since every variable in Jolie is a tree, `req.e[ i ]` is actually a shorthand for `req.e[ i ][ 0 ]`, i.e., the first leaf of tree `req.e[ i ]`. If we assume to have a one-element data structure, using `=` to copy it would yield the same result as `<<`. On the contrary, if we want to bring along a sub-structure rooted in `req.e[ i ]` (e.g., blog posts) we need to deep-copy it.
+
+---
+
+Let us get to the recursive calls. We need to create two [ports](http://docs.jolie-lang.org/#!documentation/basics/communication_ports.html#ports), one inputPort and one outputPort.
 
 <pre>
 <code class="language-jolie">outputPort SelfOut {
@@ -120,9 +120,9 @@ inputPort SelfIn {
 	Interfaces: QuicksortInterface
 }</code></pre>
 
-We use the [`"local"`](http://docs.jolie-lang.org/#!documentation/locations/local.html) location, which is a lightweight medium that exploit in-memory messages between services running in the same interpreter. In this case we use it to let the QuickSort Service call itself.
+We use the [`"local"`](http://docs.jolie-lang.org/#!documentation/locations/local.html) location, which is a lightweight medium that exploits in-memory messages between services running in the same interpreter. In this case we use it to let the QuickSort Service call itself.
 
-Almost finished. Let us invoke `quicksort` one two partitions created earlier.
+Almost finished. Let us invoke `quicksort` on the two partitions created earlier.
 
 <pre>
 <code class="language-jolie">// 2. order the two partitions
@@ -138,13 +138,13 @@ for ( i=0, i<#greater.e, i++) {
 	res.e[ #res.e ] << greater.e[ i ]
 }</code></pre>
 
-We append the pivot and the elements of greater to res, which concludes the behaviour of quicksort. 
+We append the pivot and the elements of `greater` to `res,` which concludes the behaviour of quicksort. 
 
-Just a couple of things and we are ready to run our quicksort. First, we set to `concurrent` the [execution mode](http://docs.jolie-lang.org/#!documentation/basics/processes.html) of our service. In `concurrent` mode Jolie creates a new instance of the service at any new request.
+Just a couple of things and we are ready to run our service. First, we set to `concurrent` the [execution mode](http://docs.jolie-lang.org/#!documentation/basics/processes.html) of our service. In `concurrent` mode Jolie creates a new instance of the service at any new request.
 
 <pre><code class="language-jolie">Execution{ concurrent }</code></pre>
 
-and second we add the `init` procedure which, like the `main`, is a special procedure executed before the main. To enable quicksort call itself we need to set the `local` location of outputPort SelfOut to the value returned by the runtime service
+and second we add the `init` procedure which, like the `main`, is a special procedure. If present `init` is executed before the `main`. To enable quicksort call itself we need to set the `local` location of outputPort SelfOut to the value returned by the runtime service
 
 <pre><code class="language-jolie">init { getLocalLocation@Runtime()( SelfOut.location ) }</code></pre>
 
@@ -153,7 +153,7 @@ and second we add the `init` procedure which, like the `main`, is a special proc
 
 ## To wrap up
 
-Let us pull together the parts we wrote above into a single Jolie service (for simplicity I set the type of the content of the array to `int`)
+Let us pull together the parts we wrote above into a single Jolie service (for simplicity I set the type of the content of the array to `int`). Note that we enclosed operation `quicksort` into the `[main](http://docs.jolie-lang.org/#!documentation/basics/define.html)` procedure.
 
 <pre>
 <code class="language-jolie">include "runtime.iol"
@@ -165,7 +165,7 @@ type QSType: void{
 }
 
 interface QuicksortInterface {
-  RequestResponse: quicksort( undefined )( undefined )
+  RequestResponse: quicksort( QSType )( QSType )
 }
 
 inputPort SelfIn {
@@ -215,7 +215,7 @@ main
   }
 }</code></pre>
 
-As you can see I also added a new port to the service
+Did you noticed I also added a new port to the service?
 
 <pre>
 <code class="language-jolie">inputPort SelfHttp {
@@ -224,8 +224,8 @@ As you can see I also added a new port to the service
   Interfaces: QuicksortInterface
 }</code></pre>
 
-which enables the service to accept a request from any browser.
-How cool is that?! We developed an application for in-memory requests and with just 4 lines of declarative code we have it accepting calls from HTTP! Fire up your terminal an try this:
+What it does is to enable the service to accept a request from any browser.
+How cool is that?! We developed an application for in-memory requests and with just 4 lines of declarative code we have it accepting calls from HTTP! Fire up your terminal and try this:
 
 <pre>curl -H "content-type: text/xml" -d "<quicksort><e>5</e><e>21</e><e>13</e><e>34</e><e>1</e><e>1</e><e>2</e><e>3</e></quicksort>" http://localhost:8000/quicksort</pre>
 
