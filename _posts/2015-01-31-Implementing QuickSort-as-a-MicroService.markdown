@@ -142,7 +142,7 @@ We append the pivot and the elements of `greater` to `res,` which concludes the 
 
 Just a couple of things and we are ready to run our service. First, we set to `concurrent` the [execution mode](http://docs.jolie-lang.org/#!documentation/basics/processes.html) of our service. In `concurrent` mode Jolie creates a new instance of the service at any new request.
 
-<pre><code class="language-jolie">Execution{ concurrent }</code></pre>
+<pre><code class="language-jolie">execution{ concurrent }</code></pre>
 
 and second we add the `init` procedure which, like the `main`, is a special procedure. If present `init` is executed before the `main`. To enable quicksort call itself we need to set the `local` location of outputPort SelfOut to the value returned by the runtime service
 
