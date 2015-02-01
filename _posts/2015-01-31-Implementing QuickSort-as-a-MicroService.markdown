@@ -153,7 +153,7 @@ and second we add the `init` procedure which, like the `main`, is a special proc
 
 ## To wrap up
 
-Let us pull together the parts we wrote above into a single Jolie service (for simplicity I set the type of the content of the array to `int`). Note that we enclosed operation `quicksort` into the `[main](http://docs.jolie-lang.org/#!documentation/basics/define.html)` procedure.
+Let us pull together the parts we wrote above into a single Jolie service (for simplicity I set the type of the content of the array to `int`). Note that we enclosed operation `quicksort` into the `[main]`(http://docs.jolie-lang.org/#!documentation/basics/define.html) procedure.
 
 <pre>
 <code class="language-jolie">include "runtime.iol"
