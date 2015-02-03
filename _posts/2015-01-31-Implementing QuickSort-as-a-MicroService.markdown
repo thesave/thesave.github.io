@@ -234,7 +234,7 @@ How cool is that?! We developed an application for in-memory requests and with j
 
 <pre>http://localhost:8000/quicksort?e=5&e=21&e=13&e=34&e=1&e=1&e=2&e=3</pre>
 
-(or if you are REALLY lazy click [here](http://localhost:8000/quicksort?e=5&e=21&e=13&e=34&e=1&e=1&e=2&e=3), after you launched the quicksort service)
+(or if you are REALLY lazy click [here](http://localhost:8000/quicksort?e=5&e=21&e=13&e=34&e=1&e=1&e=2&e=3), after you launched the quicksort service, of course.)
 
 Still here? Get yourself a [Jolie](http://www.jolie-lang.org/downloads.html) and start tinkering with microservices :)
 
