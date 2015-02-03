@@ -232,7 +232,7 @@ Did you noticed I also added a new port to the service?
 What it does is to enable the service to accept a request from any browser.
 How cool is that?! We developed an application for in-memory requests and with just 4 lines of declarative code we have it accepting calls from HTTP! Fire up your terminal and try this:
 
-<pre><![CDATA[curl -H "content-type: text/xml" -d "<quicksort><e>5</e><e>21</e><e>13</e><e>34</e><e>1</e><e>1</e><e>2</e><e>3</e></quicksort>" http://localhost:8000/quicksort]]></pre>
+<pre>curl -H "content-type: text/xml" -d "&lt;quicksort&gt;&lt;e&gt;5&lt;/e&gt;&lt;e&gt;21&lt;/e&gt;&lt;e&gt;13&lt;/e&gt;&lt;e&gt;34&lt;/e&gt;&lt;e&gt;1&lt;/e&gt;&lt;e&gt;1&lt;/e&gt;&lt;e&gt;2&lt;/e&gt;&lt;e&gt;3&lt;/e&gt;&lt;/quicksort&gt;" http://localhost:8000/quicksort</pre>
 
 Still here? Get yourself a [Jolie](http://www.jolie-lang.org/downloads.html) and start tinkering with microservices :)
 
