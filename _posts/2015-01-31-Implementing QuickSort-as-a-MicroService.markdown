@@ -232,7 +232,9 @@ Did you noticed I also added a new port to the service?
 What it does is to enable the service to accept a request from any browser.
 How cool is that?! We developed an application for in-memory requests and with just 4 lines of declarative code we have it accepting calls from HTTP! Fire up your browser and write this URL:
 
-<pre>http://localhost:8000/quicksort=?e=5&e=21&e=13&e=34&e=1&e=1&e=2&e=3</pre>
+<pre>http://localhost:8000/quicksort?e=5&e=21&e=13&e=34&e=1&e=1&e=2&e=3</pre>
+
+(or if you are REALLY lazy click [here](http://localhost:8000/quicksort?e=5&e=21&e=13&e=34&e=1&e=1&e=2&e=3), after you launched the quicksort service)
 
 Still here? Get yourself a [Jolie](http://www.jolie-lang.org/downloads.html) and start tinkering with microservices :)
 
