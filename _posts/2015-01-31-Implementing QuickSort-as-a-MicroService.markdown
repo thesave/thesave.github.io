@@ -2,7 +2,7 @@
 layout: post
 title:  "Implementing Quicksort-as-a-(Micro)Service"
 date:   2015-01-31 15:00:00
-categories: jolie microservices
+categories: jolie microservices tutorials
 ---
 *Scenario*: for the release of the new [Jolie website](http://jolie-lang.org) we decided to add external blog posts in a dedicated "[blogs](http://www.jolie-lang.org/planet)" section. After ~230 lines of Jolie code we had our own news retrieval  service. The service reads the RSS feed from our collection of blogs and serves them as a single flow of news. 
 
