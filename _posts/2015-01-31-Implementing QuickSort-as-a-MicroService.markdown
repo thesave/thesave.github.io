@@ -5,7 +5,7 @@ date:   2015-02-03 10:00:00
 categories: jolie microservices tutorials
 ---
 
-**TL;DR** Microservices are not so cumbersome and tedious to develop as you may think. It only requires the right tool ([Jolie](http://jolie-lang.org/)) for the job. I report my experience in implementing a simple staple utility (quicksort) as-a-service. The service recursively calls itself using internal memory but it is very easy to make it accept also HTTP calls or to distribute the workflow on different instances of the same service.
+**TL;DR** Microservices are not so cumbersome and tedious to develop as you may think. They only require the right tool ([Jolie](http://jolie-lang.org/)) for the job. I report my experience in implementing a simple staple utility (quicksort) as-a-service. The service recursively calls itself using internal memory but it is very easy to make it accept also HTTP calls or to distribute the workflow on different instances of the same service.
 
 ---
 
@@ -102,14 +102,14 @@ As you might guess, `req` and `res` have both type `QSType`. The body of the ope
 }</code>
 </pre></div></div>
 
-First we check if the array in the request has less than 2 elements. Jolie provides the `#` operator that returns the number of leaves in the branch at its right. Its behaviour is not different from the usual `req.e.length()` of C/Java.
+First we check if the array in the request has less than 2 elements. Jolie provides the `#` operator that returns the number of leaves in the branch at its right. Its behaviour is not different from the usual `req.e.length` of C++/Java.
 In case there are less than 2 elements (else branch), we return as response exactly the request. `res << req` (`<<` being the [deep-copy operator](http://docs.jolie-lang.org/#!documentation/basics/data_structures.html#copying-an-entire-tree-structure)) means "copy the whole structure and values of variable `req` in `res`".
 
 If there are more elements we can sort them. Although there are plenty of optimisations [[1]](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.39.1103)[[2]](http://comjnl.oxfordjournals.org/content/27/3/276.full.pdf+html)[[3]](http://www.cs.dartmouth.edu/~doug/mdmspe.pdf)[[4]](http://cs.fit.edu/~pkc/classes/writing/samples/bentley93engineering.pdf), we will stick to the good ol' "take the middle element as pivot". We use `#` to address the *n-th+1* leaf and store the whole structure of the `i-th` element of `req.e`.
 
 ---
 
-*Beware: pedantic observation!*. We are using `<<` to copy the values of the leaves. Why didn't we use the expression `less.e[ #less.e ] = req.e[ i ]`? Since every variable in Jolie is a tree, `req.e[ i ]` is actually a shorthand for `req.e[ i ][ 0 ]`, i.e., the first leaf of tree `req.e[ i ]`. If we assume to have a one-element data structure, using `=` to copy it would yield the same result as `<<`. On the contrary, if we want to bring along a sub-structure rooted in `req.e[ i ]` (e.g., blog posts) we need to deep-copy it.
+*Beware: pedantic observation!*. We are using `<<` to copy the values of the leaves. Why didn't we use the expression `less.e[ #less.e ] = req.e[ i ]`? If we assume the type `T` of `req.e[ i ]` to be a basic type (int, string, double, ...), using `=` would yield the same result as `<<`. On the contrary, if we want to bring along a sub-structure rooted in `req.e[ i ]` (e.g., blog posts) we need to deep-copy it.
 
 ---
 
@@ -232,7 +232,7 @@ Did you noticed I also added a new port to the service?
 What it does is to enable the service to accept a request from any browser.
 How cool is that?! We developed an application for in-memory requests and with just 4 lines of declarative code we have it accepting calls from HTTP! Fire up your terminal and try this:
 
-<pre>curl -H "content-type: text/xml" -d "<quicksort><e>5</e><e>21</e><e>13</e><e>34</e><e>1</e><e>1</e><e>2</e><e>3</e></quicksort>" http://localhost:8000/quicksort</pre>
+<pre><![CDATA[curl -H "content-type: text/xml" -d "<quicksort><e>5</e><e>21</e><e>13</e><e>34</e><e>1</e><e>1</e><e>2</e><e>3</e></quicksort>" http://localhost:8000/quicksort]]></pre>
 
 Still here? Get yourself a [Jolie](http://www.jolie-lang.org/downloads.html) and start tinkering with microservices :)
 
