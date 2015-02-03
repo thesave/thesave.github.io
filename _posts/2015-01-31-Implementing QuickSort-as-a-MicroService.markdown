@@ -1,9 +1,14 @@
 ---
 layout: post
 title:  "Implementing Quicksort-as-a-(Micro)Service"
-date:   2015-01-31 15:00:00
+date:   2015-02-03 10:00:00
 categories: jolie microservices tutorials
 ---
+
+**TL;DR** Microservices are not so cumbersome and tedious to develop as you may think. It only requires the right tool ([Jolie](http://jolie-lang.org/)) for the job. I report my experience in implementing a simple staple utility (quicksort) as-a-service. The service recursively calls itself using internal memory but it is very easy to make it accept also HTTP calls or to distribute the workflow on different instances of the same service.
+
+---
+
 *Scenario*: for the release of the new [Jolie website](http://jolie-lang.org) we decided to add external blog posts in a dedicated "[blogs](http://www.jolie-lang.org/planet)" section. After ~230 lines of Jolie code we had our own news retrieval  service. The service reads the RSS feed from our collection of blogs and serves them as a single flow of news. 
 
 *Problem*: we had different sources that returned a stream of articles ordered by date. We collected them into a single stream but still they were not ordered properly.
