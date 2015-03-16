@@ -5,7 +5,7 @@ date:   2015-02-03 10:00:00
 categories: jolie microservices tutorials
 ---
 
-**TL;DR** Microservices are not so cumbersome and tedious to develop as you may think. They only require the right tool ([Jolie](http://jolie-lang.org/)) for the job. I report my experience in implementing a simple staple utility (quicksort) as-a-service. The service recursively calls itself using internal memory but it is very easy to make it accept also HTTP calls or to distribute the workflow on different instances of the same service.
+**TL;DR** Microservices are not so cumbersome and tedious to develop as [you may think](http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html). They only require the right tool ([Jolie](http://jolie-lang.org/)) for the job. I report my experience in implementing a simple staple utility (quicksort) as-a-service. The service recursively calls itself using internal memory but it is very easy to make it accept also HTTP calls or to distribute the workflow on different instances of the same service.
 
 ---
 
