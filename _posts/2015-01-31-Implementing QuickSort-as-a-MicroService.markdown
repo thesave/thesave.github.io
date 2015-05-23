@@ -220,7 +220,7 @@ main
   }
 }</code></pre>
 
-Did you noticed I also added a new port to the service?
+Did you notice I also added a new port to the service?
 
 <pre>
 <code class="language-jolie">inputPort SelfHttp {
