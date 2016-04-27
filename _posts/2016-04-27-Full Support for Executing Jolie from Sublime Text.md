@@ -15,7 +15,7 @@ Currently, the Jolie programs execute in different terminals according to the OS
 
 - Windows: the default prompt console;
 - OSX: the default Terminal app or [iTerm](https://www.iterm2.com/) in case it is installed;
-- Linux: uses (and requires) `x-terminal-emulator`, which automatically start the OS-defined default terminal (e.g., `gnome-terminal` for Gnome, `konsole` for KDE, etc.).
+- Linux: uses (and requires) `x-terminal-emulator`, which automatically starts the OS-defined default terminal (e.g., `gnome-terminal` for Gnome, `konsole` for KDE, etc.).
 
 ---
 
