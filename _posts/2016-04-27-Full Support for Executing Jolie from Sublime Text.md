@@ -5,7 +5,7 @@ date:   2016-04-26 10:00:00
 categories: jolie sublime-text
 ---
 
-[Version 1.2.2](https://github.com/thesave/sublime-Jolie/releases/tag/1.2.2) of the 'jolie' plugin for the Sublime Text editor now supports the direct execution of Jolie programs from the editor's interface on the main operative systems, i.e., Windows, OSX, and Linux.
+[Version 1.2.2](https://github.com/thesave/sublime-Jolie/releases/tag/1.2.2) of the 'jolie' plugin for the Sublime Text editor now supports the direct execution of Jolie programs from the editor's interface on the main operating systems, i.e., Windows, OSX, and Linux.
 
 <img src="http://thesave.github.io/imgs/sublime-jolie.jpg" alt="">
 
