@@ -15,7 +15,7 @@ For the delivery, I strongly advised the students to use [Jolie](http://www.joli
 
 Why Jolie? 
 
-<img style="float:right; width:50%; margin-left:5%;margin-bottom:1%;" src="/imgs/jolie_raft.png" alt="">
+<img style="float:right; width:50%; margin-left:5%;margin-bottom:1%;" src="http://thesave.github.io/imgs/jolie_raft.png" alt="">
 [Previous successful experiences](http://cs.unibo.it/~sgiallor/teaching#projects). For one, with Jolie students implicitly become familiar with the popular architectural style of [microservices](https://en.wikipedia.org/wiki/Microservices). Second, by developing with Jolie, neophyte students can rapidly grasp the essential concepts behind distributed applications and create complex systems. Third, Jolie lifts a lot of the complexity of setting up and running a distributed architecture, which lets programmers focus on getting their distributed logic right, rather than spending time and time on network bindings, data marshalling and transmission, etc.
 
 Among the many excellent implementations [that I received](http://cs.unibo.it/~sgiallor/teaching/project/current/groups.html), the one delivered by Matteo Berti, Arnaldo Cesco, and Salvatore Fiorilla (group 01011001) strikes for its clarity and ease of use. In particular, they walked the proverbial "extra mile" to include additional features like easy-to-use CLIs and Web GUIs.
